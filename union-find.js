@@ -13,14 +13,14 @@ function union(map, p, q){
     if(!map.has(p)||!map.has(q)){
         //有一个不在map里，说明是游离节点，自动设为child
         if(!map.has(p)){
-            var child = p, parent = find(map, q);
+            var child = p, parent = find(map, q); //path compression 父母直接设给根节点
         } else {
             var child = q, parent = find(map, p);
         }
         map.set(child, new Node(parent, 0));
     } else {
         //均存在map中，需要进行weighting的两个节点
-        var pr = find(map, p), qr = find(map, q), prs = map.get(pr).size, qrs = map.get(qr).size;
+        const pr = find(map, p), qr = find(map, q), prs = map.get(pr).size, qrs = map.get(qr).size;
         if(prs < qrs){
             var child = pr, parent = qr;
         } else {
